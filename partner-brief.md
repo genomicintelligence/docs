@@ -27,7 +27,6 @@ issued.
 | Field | Notes |
 |---|---|
 | Key format | `gi_…` |
-| Tier | `partner` |
 | Concurrent in-flight cap | per-partner, typically 2–4 for new POCs |
 | Per-minute request rate | per-partner, typically 60 rpm for new POCs |
 | Edge per-IP cap | 10 r/s burst 20 (shared across IPs, not per-key) |

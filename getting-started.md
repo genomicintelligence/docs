@@ -170,9 +170,9 @@ the per-request bucket state. Per-key caps:
 ## 6. Logging
 
 Every request emits one structured server log line with `request_id`,
-`client_id`, `tier`, and the request path. The request body is not
-logged — sequences and predictions stay out of logs. The one exception
-is `options.description` on the expression task: it is logged verbatim
+`client_id`, and the request path. The request body is not logged —
+sequences and predictions stay out of logs. The one exception is
+`options.description` on the expression task: it is logged verbatim
 and can appear in Sentry breadcrumbs on errors. Don't put confidential
 content in `options.description`.
 
