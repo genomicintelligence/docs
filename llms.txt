@@ -1,0 +1,38 @@
+# Genomic Intelligence API
+
+> REST API for DNA sequence analysis with transformer language models.
+> Six atomic tasks (promoter, splice, enhancer, chromatin, annotation,
+> expression). Bearer auth, typed `{data, meta}` envelopes, sync + async
+> dispatch. Single-tenant POC deployment; no SLA.
+
+## Agent entry point
+
+- [AGENTS.md](https://docs.genomicintelligence.ai/AGENTS.md): structured agent integration guide. Read first.
+
+## Contract
+
+- [getting-started.md](https://docs.genomicintelligence.ai/getting-started.md): auth → sync → async walkthrough with curl + Python.
+- [reference/errors.md](https://docs.genomicintelligence.ai/reference/errors.md): every `error.code` and how to bucket it.
+- [reference/limits.md](https://docs.genomicintelligence.ai/reference/limits.md): per-task caps, rate quotas, async TTL.
+- [partner-brief.md](https://docs.genomicintelligence.ai/partner-brief.md): one-page demo-posture summary.
+
+## Live machine-readable contract
+
+- [openapi.json](https://api.genomicintelligence.ai/v1/openapi.json): OpenAPI 3.1 schema, source of truth.
+
+## Code
+
+- [client/gi_client.py](https://docs.genomicintelligence.ai/client/gi_client.py): drop-in Python client, 178 lines, depends only on `requests`.
+- [client/quickstart.py](https://docs.genomicintelligence.ai/client/quickstart.py): exercises every task with real biological sequences in ~17 s.
+
+## Recipes
+
+- [recipes/01_health_probe.py](https://docs.genomicintelligence.ai/recipes/01_health_probe.py): minimal connectivity check.
+- [recipes/02_promoters_for_gene_list.py](https://docs.genomicintelligence.ai/recipes/02_promoters_for_gene_list.py): batch promoter prediction across human gene symbols.
+- [recipes/03_async_annotation_polling.py](https://docs.genomicintelligence.ai/recipes/03_async_annotation_polling.py): async submit + poll with progress.
+- [recipes/04_ratelimit_aware_retry.py](https://docs.genomicintelligence.ai/recipes/04_ratelimit_aware_retry.py): pace from `RateLimit-*` headers, honour `Retry-After`.
+- [recipes/05_typed_error_handling.py](https://docs.genomicintelligence.ai/recipes/05_typed_error_handling.py): switch on `error.code`, map every code to an action.
+
+## Persist across sessions
+
+- [snippets/AGENTS.partner.md](https://docs.genomicintelligence.ai/snippets/AGENTS.partner.md): drop-in for your own repo's AGENTS.md.

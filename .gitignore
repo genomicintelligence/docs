@@ -1,0 +1,16 @@
+# Python bytecode (from running quickstart.py / client locally)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# venvs
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

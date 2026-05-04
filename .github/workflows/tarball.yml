@@ -1,0 +1,53 @@
+name: integration-kit tarball
+
+# Builds integration-kit.tar.gz from the partner-facing content of this
+# repo and uploads it as a release asset. Triggered when a GitHub Release
+# is published. Manual dispatch is also supported for one-off rebuilds.
+#
+# Excludes repo plumbing (CNAME, .nojekyll, README.md, index.html,
+# .github/) and includes only what a partner agent needs locally.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the asset to (e.g. v1.0.0). Required for manual runs."
+        required: true
+        type: string
+
+permissions:
+  contents: write   # needed to upload the asset to the release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build integration-kit.tar.gz
+        run: |
+          set -euo pipefail
+          # Top-level entries to ship: agent guide, llms.txt index,
+          # narrative + reference contract, runnable kit + bundled
+          # fixtures, recipes, drop-in snippets.
+          tar -czf integration-kit.tar.gz \
+            --transform 's,^,integration-kit/,' \
+            AGENTS.md \
+            llms.txt \
+            partner-brief.md \
+            getting-started.md \
+            reference \
+            recipes \
+            snippets \
+            client
+          ls -la integration-kit.tar.gz
+          # Print contents without `head` to avoid SIGPIPE on tar under set -e.
+          echo "Total entries: $(tar -tzf integration-kit.tar.gz | wc -l)"
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name || inputs.tag }}
+          files: integration-kit.tar.gz
